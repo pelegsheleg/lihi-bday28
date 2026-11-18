@@ -331,6 +331,18 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 .polw span{display:block;text-align:center;font-size:24px;padding-top:4px}
 
 
+/* ===== lock ===== */
+#lock{background-color:var(--powder)}
+.lockIn{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
+.lockIc{width:84px;animation:wig 2.6s steps(2) infinite}
+#lock h1{font-size:min(15vw,62px);rotate:-3deg}
+#lockF{display:flex;flex-direction:column;align-items:center;gap:12px}
+#lockF.bad{animation:shake .35s}
+#pw{width:min(78vw,300px);min-height:58px;border:3px solid var(--ink);background:var(--paper);color:var(--ink);font:900 26px 'Rubik','Arial Hebrew',sans-serif;text-align:center;box-shadow:5px 6px 0 rgba(0,0,0,.28);border-radius:0;outline:none}
+#pw:focus{box-shadow:5px 6px 0 var(--teal)}
+#lockF .btn{min-width:200px}
+.lockHint{margin:6px 0 0;font-size:15px;font-weight:900;max-width:300px}
+.lockQ{background:var(--ink);color:var(--paper);font-weight:900;font-size:22px;line-height:1.25;padding:8px 16px;rotate:-2deg;max-width:min(86vw,340px);box-shadow:5px 6px 0 var(--peach)}
 /* ===== cinematic intro ===== */
 #intro{background:#050505;color:#fff;overflow:hidden;font-family:'Rubik','Arial Hebrew',sans-serif}
 .isc{position:absolute;inset:0;display:none;overflow:hidden}
@@ -525,6 +537,19 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 </defs></svg>
 
 <div id="app">
+
+<section id="lock" class="scr dots" aria-label="כניסה">
+  <div class="lockIn">
+    <svg class="lockIc st" viewBox="0 0 80 90" aria-hidden="true"><path d="M22 40 V28 C22 4, 58 4, 58 28 V40" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/><rect x="10" y="38" width="60" height="46" rx="8" fill="#FFD84D" stroke="#111" stroke-width="4"/><circle cx="40" cy="58" r="7" fill="#111"/><rect x="37" y="60" width="6" height="14" rx="3" fill="#111"/></svg>
+    <h1 class="big">לוכלין לנד</h1>
+    <form id="lockF" autocomplete="off">
+      <label for="pw" class="lockQ">מי מהתואר את הכי שונאת?</label>
+      <input id="pw" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go">
+      <button class="btn" type="submit">נכנסים</button>
+    </form>
+    <p class="lockHint" id="lockMsg" role="status">תשובה אחת ונכנסים</p>
+  </div>
+</section>
 
 <section id="intro" class="scr on" aria-label="פתיח">
   <div class="isc on" id="iStart">
@@ -894,6 +919,27 @@ function iEnter(){ iStopAll(); enableMotion(); go('home'); confetti(60); celebra
 $('#iPlay').onclick=iBegin;
 $('#iGo').onclick=iEnter;
 $('#iSkip').onclick=iEnter;
+
+// ---------- סיסמה ----------
+function sha256hex(str){ const b=new TextEncoder().encode(str), K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  const H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  const l=b.length, n=((l+9+63)>>6)<<6, m=new Uint8Array(n); m.set(b); m[l]=0x80; const dv=new DataView(m.buffer); dv.setUint32(n-4,l*8); dv.setUint32(n-8,Math.floor(l/0x20000000));
+  const w=new Uint32Array(64), r=(x,k)=>(x>>>k)|(x<<(32-k));
+  for(let o=0;o<n;o+=64){ for(let i=0;i<16;i++) w[i]=dv.getUint32(o+i*4);
+    for(let i=16;i<64;i++){ const s0=r(w[i-15],7)^r(w[i-15],18)^(w[i-15]>>>3), s1=r(w[i-2],17)^r(w[i-2],19)^(w[i-2]>>>10); w[i]=(w[i-16]+s0+w[i-7]+s1)>>>0; }
+    let [a,bb,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){ const S1=r(e,6)^r(e,11)^r(e,25), ch=(e&f)^(~e&g), t1=(h+S1+ch+K[i]+w[i])>>>0, S0=r(a,2)^r(a,13)^r(a,22), mj=(a&bb)^(a&c)^(bb&c), t2=(S0+mj)>>>0;
+      h=g; g=f; f=e; e=(d+t1)>>>0; d=c; c=bb; bb=a; a=(t1+t2)>>>0; }
+    H[0]=(H[0]+a)>>>0; H[1]=(H[1]+bb)>>>0; H[2]=(H[2]+c)>>>0; H[3]=(H[3]+d)>>>0; H[4]=(H[4]+e)>>>0; H[5]=(H[5]+f)>>>0; H[6]=(H[6]+g)>>>0; H[7]=(H[7]+h)>>>0; }
+  return H.map(x=>x.toString(16).padStart(8,'0')).join(''); }
+const PASS=["55859c841959ddd47f3548ef428dc649428da3e8f3534140f8c8b93123fcc5e9","3ee9825c4eebd0334f40bc629d20ecbe5b0545889790ccf3df8fe0b0a2da19bd","7c45d237d2c93594e7d0ed795e4bef5f050314cc725844cde607ee63d2a49ba6"]; let lockFails=0;
+let unlocked=false; try{ unlocked=localStorage.getItem('lochlin-ok-v1')==='1'; }catch(e){}
+if(!unlocked){ $('#intro').classList.remove('on'); $('#lock').classList.add('on'); cur='lock'; }
+$('#lockF').addEventListener('submit',e=>{ e.preventDefault();
+  const v=$('#pw').value.toLowerCase().replace(/[^\u05d0-\u05eaa-z]/g,'').replace(/ץ/g,'צ').replace(/ף/g,'פ').replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ');
+  if(PASS.includes(sha256hex(v)) || PASS.includes(sha256hex(v.slice(0,3)))){ try{ localStorage.setItem('lochlin-ok-v1','1'); }catch(err){}
+    $('#pw').blur(); $('#lock').classList.remove('on'); $('#intro').classList.add('on'); cur='intro'; iBegin(); }
+  else { const f=$('#lockF'); f.classList.remove('bad'); void f.offsetWidth; f.classList.add('bad'); lockFails++; $('#lockMsg').textContent=lockFails>=2?'רמז: שלוש אותיות, מתחיל ב־נ':'לא זה. נסי שוב'; beep(150,.15,'sawtooth'); } });
 
 // ---------- צליל ----------
 let muted=false, ac=null;
