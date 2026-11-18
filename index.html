@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
 <title>לוכלין לנד</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Frank+Ruhl+Libre:wght@900&family=Rubik:wght@500;900&display=swap">
 <style>
-:root{--ink:#111;--paper:#FBF3E4;--teal:#19B5B1;--peach:#FF8E6E;--butter:#FFD84D;--powder:#F6BCCB}
+:root{color-scheme:only light;--ink:#111;--paper:#FBF3E4;--teal:#19B5B1;--peach:#FF8E6E;--butter:#FFD84D;--powder:#F6BCCB}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#161616;overscroll-behavior:none}
 body{font-family:'Rubik','Arial Hebrew',Arial,sans-serif;font-weight:500;color:var(--ink);-webkit-tap-highlight-color:transparent}
@@ -57,6 +58,28 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 #map{background-color:var(--powder);overflow-y:auto}
 #map header{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 0}
 #map h2{font-size:72px;rotate:-3deg}
+.mtitle{position:relative;display:flex;flex-direction:column;align-items:flex-start}
+.scrib{width:150px;height:20px;margin:-6px 4px 0 0;rotate:-3deg}
+.compass{position:absolute;left:-58px;top:6px;width:54px;height:54px;animation:wig 3s steps(2) infinite}
+.mapwrap{position:relative}
+.trail{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55}
+.dd{position:absolute;z-index:3;pointer-events:none}
+.d1{width:30px;left:calc(50% - 15px);top:4px;animation:wig 2.4s steps(2) infinite}
+.d2{width:34px;left:calc(50% - 17px);top:31%;opacity:.85}
+.d3{width:38px;left:calc(50% - 19px);top:62%}
+.d4{width:24px;right:6px;top:47%;animation:wig 2.8s steps(2) infinite reverse}
+.d5{width:52px;left:8px;bottom:62px;rotate:-10deg}
+.d6{width:28px;left:6px;top:20%;animation:wig 3.2s steps(2) infinite}
+#map .grid{position:relative;z-index:1}
+#map .gaterow{position:relative;z-index:1}
+.tk{border:0!important;overflow:visible}
+.tk::before{content:'';position:absolute;inset:-2px;border:3.5px solid var(--ink);filter:url(#rough);pointer-events:none;z-index:2}
+.wtape{position:absolute;top:-12px;left:50%;width:66px;height:22px;translate:-50% 0;rotate:-6deg;background:rgba(25,181,177,.75);z-index:3;mask:linear-gradient(90deg,transparent 0,#000 4px,#000 calc(100% - 4px),transparent 100%)}
+.tk:nth-child(3n+2) .wtape{background:rgba(255,216,77,.85);rotate:5deg}
+.tk:nth-child(3n) .wtape{background:rgba(255,142,110,.8);rotate:-2deg}
+.tkic{position:absolute;right:-12px;top:78px;width:46px;height:46px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;z-index:3;rotate:-10deg;box-shadow:3px 3px 0 rgba(0,0,0,.25)}
+.tkic svg{width:30px;height:30px}
+.tk:nth-child(even) .tkic{right:auto;left:-12px;rotate:10deg}
 #map .sub{margin:14px 24px 0;display:flex;gap:8px;flex-wrap:wrap}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px;padding:22px 22px 10px}
 .tk{position:relative;padding:0;border:3px solid var(--ink);background:var(--paper);display:flex;flex-direction:column;box-shadow:5px 6px 0 rgba(0,0,0,.3)}
@@ -354,6 +377,7 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 #iLand.on .logoL{animation:pop .5s .25s both}
 #iGo{margin-top:10px}
 #iLand.on #iGo{animation:pop .45s .6s both}
+@media (prefers-reduced-motion:reduce){.compass,.d1,.d4,.d6{animation:none}}
 @media (prefers-reduced-motion:reduce){.grain,#iPlay,#wheel .spin,#wheel .cab{animation:none}}
 /* breakfast v3 */
 #bfast{padding-bottom:10px;gap:8px}
@@ -452,6 +476,8 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 <symbol id="scal" viewBox="0 0 60 60"><g transform="rotate(-45 30 30)"><rect fill="#8F97AA" x="4" y="26" width="30" height="8" rx="3"/><rect fill="#5E667A" x="10" y="26" width="3" height="8"/><rect fill="#5E667A" x="16" y="26" width="3" height="8"/><path fill="#E8ECF2" stroke="#111" stroke-width="1.5" d="M34 26 L50 26 Q58 28 56 34 L34 34Z"/></g></symbol>
 <symbol id="thr" viewBox="0 0 60 60"><path fill="none" stroke="#111" stroke-width="2.5" stroke-dasharray="4 3" d="M8 50 Q20 20 30 30 Q40 40 52 10"/><path fill="#E8ECF2" stroke="#111" stroke-width="1.5" d="M46 6 L56 4 L54 14Z"/><circle fill="none" stroke="#111" stroke-width="2.5" cx="8" cy="52" r="4"/></symbol>
 <symbol id="cbf" viewBox="0 0 70 80"><rect fill="#FFD84D" x="17" y="8" width="8" height="34" transform="rotate(-10 21 25)"/><rect fill="#FFE27A" x="31" y="2" width="8" height="38"/><rect fill="#FFD84D" x="45" y="8" width="8" height="34" transform="rotate(10 49 25)"/><path fill="#F2B530" d="M10 38 L60 38 L55 77 L15 77Z"/><path fill="url(#dotB)" d="M10 38 L60 38 L55 77 L15 77Z"/><path fill="#E39A2D" d="M35 50 L38.500 57.500 L46 58.300 L40.300 63.300 L42 71 L35 67 L28 71 L29.700 63.300 L24 58.300 L31.500 57.500Z"/><path fill="#FF9A1F" d="M9 30 L61 30 L61 39 Q57 47 53 39 Q50 50 45 40 Q41 48 37 40 Q33 52 28 40 Q24 48 20 40 Q15 47 9 39Z"/><path fill="#B5402A" d="M12 26 Q20 18 28 26 Q34 32 42 24 Q50 18 58 26 L58 32 Q50 24 42 30 Q34 38 28 32 Q20 24 12 32Z"/><path fill="none" stroke="#F28B82" stroke-width="1.6" d="M14 29 Q20 23 27 29 M44 27 Q50 22 56 28"/></symbol>
+<filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+<symbol id="cam" viewBox="0 0 60 60"><rect fill="#19B5B1" x="6" y="18" width="48" height="32" rx="6"/><rect fill="#111" x="20" y="11" width="18" height="9" rx="2"/><circle fill="#FBF3E4" cx="30" cy="34" r="11"/><circle fill="#111" cx="30" cy="34" r="6"/><circle fill="#fff" cx="27" cy="31" r="2"/><rect fill="#FFD84D" x="44" y="22" width="6" height="4" rx="1"/></symbol>
 <symbol id="star" viewBox="0 0 20 20"><path fill="#FFD84D" stroke="#111" stroke-width="1.2" d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z"/></symbol>
 </defs></svg>
 
@@ -510,21 +536,31 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 
 <section id="map" class="scr dots" aria-label="מפת העולם">
   <header>
-    <h2 class="big">המפה</h2>
+    <div class="mtitle"><h2 class="big">המפה</h2><svg class="scrib" viewBox="0 0 200 24" aria-hidden="true"><path d="M4 14 C 40 6, 70 20, 110 11 S 170 6, 196 14 M20 20 C 60 15, 120 22, 180 17" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round"/></svg>
+      <svg class="compass" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" fill="#FBF3E4" stroke="#111" stroke-width="3" stroke-dasharray="5 4"/><path d="M40 8 L47 40 L40 72 L33 40Z" fill="#FF8E6E" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 40 L40 34 L72 40 L40 46Z" fill="#19B5B1" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><circle cx="40" cy="40" r="4" fill="#FFD84D" stroke="#111" stroke-width="2"/><text x="40" y="7" font-size="11" font-weight="900" text-anchor="middle" font-family="Rubik,sans-serif">N</text></svg></div>
     <div style="display:flex;gap:8px"><button class="sq mute" aria-label="צליל"><svg viewBox="0 0 24 24"><path d="M4 9 L8 9 L13 5 L13 19 L8 15 L4 15Z M17 9 Q20 12 17 15"/></svg></button><button class="sq" data-go="home" aria-label="חזרה לפתיחה"><svg viewBox="0 0 24 24"><path d="M9 5 L16 12 L9 19"/></svg></button></div>
   </header>
   <div class="sub"><span class="strip">בוחרים מה שבא</span><span class="strip" id="prog" style="background:var(--butter);color:var(--ink);font-weight:900">מדבקות: 0/6</span></div>
+  <div class="mapwrap">
+  <svg class="trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M78 2 C 96 10, 64 17, 30 21 S 6 38, 50 44 S 96 55, 72 62 S 14 71, 32 79 S 64 87, 58 95" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+  <svg class="dd d1" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L37 20 L23 24 L20 37 L17 24 L3 20 L17 16Z" fill="#FFD84D" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <svg class="dd d2" viewBox="0 0 40 40" aria-hidden="true"><path d="M21 20 C 21 17, 25 17, 25 21 C 25 26, 17 27, 15 21 C 13 14, 24 10, 29 16 C 35 24, 27 34, 18 32 C 8 30, 5 18, 12 10" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round"/></svg>
+  <svg class="dd d3" viewBox="0 0 44 30" aria-hidden="true"><path d="M3 22 L10 8 L17 22 L24 8 L31 22 L38 8" fill="none" stroke="#FF8E6E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg class="dd d4" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4 L23 16 L36 20 L23 24 L20 36 L17 24 L4 20 L17 16Z" fill="#19B5B1" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <svg class="dd d5" viewBox="0 0 60 40" aria-hidden="true"><path d="M4 30 C 20 4, 36 4, 50 20" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="1 6"/><path d="M44 12 L56 22 L42 26Z" fill="#FBF3E4" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <svg class="dd d6" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="5" fill="#FF8E6E" stroke="#111" stroke-width="2.5"/><path d="M17 2 V8 M17 26 V32 M2 17 H8 M26 17 H32 M6 6 L10 10 M24 24 L28 28 M28 6 L24 10 M6 28 L10 24" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></svg>
   <div class="grid">
-    <button class="tk" data-go="game"><img src="img/kfc.jpg" alt=""><b>מבצע צ׳דר־בייקון</b></button>
-    <button class="tk" data-go="bfast"><img src="img/head.jpg" alt=""><b>שולחן הבוקר</b></button>
-    <button class="tk" data-go="clinic"><img src="img/clinic.jpg" alt=""><b>קליניקת המהפכים</b></button>
-    <button class="tk" data-go="parli"><img src="img/finger.jpg" alt=""><b>פארלי אינגלזה</b></button>
-    <button class="tk" data-go="jocky"><img src="img/alma2.jpg" alt=""><b>ג׳וקי קטן</b></button>
-    <button class="tk" data-go="gallery"><img src="img/sushi.jpg" alt=""><b>ארכיון התמונות</b></button>
+    <button class="tk" data-go="game"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 60 70"><use href="#fries"/></svg></span><img src="img/kfc.jpg" alt=""><b>מבצע צ׳דר־בייקון</b></button>
+    <button class="tk" data-go="bfast"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 70 44"><use href="#cro"/></svg></span><img src="img/head.jpg" alt=""><b>שולחן הבוקר</b></button>
+    <button class="tk" data-go="clinic"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 60 60"><use href="#syr"/></svg></span><img src="img/clinic.jpg" alt=""><b>קליניקת המהפכים</b></button>
+    <button class="tk" data-go="parli"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 50 50"><use href="#phone"/></svg></span><img src="img/finger.jpg" alt=""><b>פארלי אינגלזה</b></button>
+    <button class="tk" data-go="jocky"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 60 60"><use href="#duck"/></svg></span><img src="img/alma2.jpg" alt=""><b>ג׳וקי קטן</b></button>
+    <button class="tk" data-go="gallery"><i class="wtape" aria-hidden="true"></i><span class="tkic" aria-hidden="true"><svg viewBox="0 0 60 60"><use href="#cam"/></svg></span><img src="img/sushi.jpg" alt=""><b>ארכיון התמונות</b></button>
   </div>
   <div class="gaterow">
     <button class="btn" data-go="gate"><svg width="46" height="34" viewBox="0 0 60 44" aria-hidden="true"><use href="#envl"/></svg>הברכה</button>
     <div class="guard"><img src="img/alma.jpg" alt="עלמה, השומרת"><span>השומרת</span></div>
+  </div>
   </div>
 </section>
 
