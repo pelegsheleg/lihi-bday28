@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light only">
+<meta name="color-scheme" content="light dark">
 <title>לוכלין לנד</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Frank+Ruhl+Libre:wght@900&family=Rubik:wght@500;900&display=swap">
 <style>
-:root{color-scheme:only light;--ink:#111;--paper:#FBF3E4;--teal:#19B5B1;--peach:#FF8E6E;--butter:#FFD84D;--powder:#F6BCCB}
+:root{color-scheme:light dark;--ink:#111;--paper:#FBF3E4;--teal:#19B5B1;--peach:#FF8E6E;--butter:#FFD84D;--powder:#F6BCCB}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#161616;overscroll-behavior:none}
 body{font-family:'Rubik','Arial Hebrew',Arial,sans-serif;font-weight:500;color:var(--ink);-webkit-tap-highlight-color:transparent}
@@ -40,17 +40,38 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 
 /* home */
 #home .top{position:absolute;inset:0 0 auto 0;height:40%;background:var(--teal)}
+#fw{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+#home .bunting,#home .hello,#home h1,#home .land,#home .pol,#home .cakeWrap,#home .fr,#home .cta,#home .hd,#home .hscrib,#home .wish{z-index:2}
 #home .bunting{position:absolute;top:0;left:0;width:100%;height:46px}
 #home .hello{position:absolute;top:54px;right:22px;rotate:-2deg;font-size:18px}
 #home h1{position:absolute;top:96px;right:18px;font-size:min(26vw,112px);rotate:-4deg}
+#home .hscrib{position:absolute;top:calc(100px + min(26vw,112px));right:24px;width:min(48vw,200px);height:18px;rotate:-4deg}
 #home .land{position:absolute;top:calc(92px + min(22vw,96px));left:22px;background:var(--butter);padding:0 20px 8px;rotate:5deg;box-shadow:5px 6px 0 rgba(0,0,0,.3);font-size:min(22vw,96px);line-height:1}
-#home .pol{position:absolute;left:50%;top:40%;width:min(72vw,310px);translate:-52% 0;rotate:-4deg;background:#fff;padding:10px 10px 38px;box-shadow:5px 7px 0 rgba(0,0,0,.3)}
+#home .pol{position:absolute;left:5%;top:39%;width:min(56vw,250px);rotate:-5deg;background:#fff;padding:9px 9px 34px;box-shadow:5px 7px 0 rgba(0,0,0,.3)}
+#home .pol::before{content:'';position:absolute;inset:-2px;border:3px solid var(--ink);filter:url(#rough);pointer-events:none}
 #home .pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
-#home .pol span{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:18px}
-#home .cake{position:absolute;left:4px;top:calc(40% + 190px);width:104px;border:0;background:none;padding:0;z-index:4;display:flex;flex-direction:column;align-items:center}
-#home .cake svg{display:block;width:96px}
-#home .cake span{font-size:12px;padding:1px 6px}
-#home .fr{position:absolute;right:4px;top:calc(40% - 30px);width:66px;z-index:4}
+#home .pol span{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:17px}
+#home .pol .wtape{top:-13px}
+#home .cakeWrap{position:absolute;right:3%;top:calc(39% + 44px);width:min(40vw,175px);display:flex;flex-direction:column;align-items:center;gap:6px}
+#home .cake{border:0;background:none;padding:0;width:100%;display:block}
+#home .cake svg{display:block;width:100%;overflow:visible}
+.flg{transform-origin:50% 100%;transform-box:fill-box;transform:skewX(var(--lean,0deg));transition:transform .12s,opacity .25s,scale .25s}
+.flg.off{opacity:0;scale:.2}
+.fl{transform-origin:50% 100%;transform-box:fill-box;animation:flame .45s ease-in-out infinite}
+.smk{opacity:0}
+.smk.puff{animation:puff 1.4s ease-out forwards}
+@keyframes puff{0%{opacity:.85;transform:translateY(0) scale(.6)}100%{opacity:0;transform:translateY(-46px) scale(1.6)}}
+.shake{margin:0;background:var(--ink);color:var(--paper);font-size:13px;font-weight:900;line-height:1.25;padding:5px 9px;display:flex;align-items:center;gap:7px;rotate:3deg;text-align:start;box-shadow:3px 3px 0 rgba(0,0,0,.25)}
+.shake svg{width:22px;height:22px;flex:none;animation:shk .45s ease-in-out infinite}
+@keyframes shk{0%,100%{rotate:-16deg}50%{rotate:16deg}}
+#home .fr{position:absolute;right:6px;top:calc(39% - 40px);width:58px}
+#home .hd{position:absolute;pointer-events:none}
+.hd1{width:30px;left:10px;top:calc(40% - 30px);animation:wig 2.4s steps(2) infinite}
+.hd2{width:34px;left:calc(5% + min(56vw,250px) + 4px);top:calc(39% + 6px)}
+.hd3{width:40px;right:12px;bottom:118px}
+.hd4{width:24px;left:46%;top:calc(39% - 26px);animation:wig 2.9s steps(2) infinite reverse}
+#home .wish{position:absolute;left:50%;top:31%;translate:-50% 0;display:none;background:var(--butter);color:var(--ink);font-weight:900;font-size:30px;padding:6px 18px;border:3px solid var(--ink);box-shadow:6px 7px 0 rgba(0,0,0,.35);rotate:-4deg;white-space:nowrap;z-index:5}
+#home .wish.on{display:block;animation:pop .45s both}
 #home .cta{position:absolute;left:0;right:0;bottom:16px;display:flex;flex-direction:column;align-items:center;gap:6px}
 #home .cta .btn{rotate:-2deg;min-width:240px;font-size:32px;min-height:64px}
 
@@ -437,6 +458,7 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){#patient,#table.wob,#parli.ring #caller{animation:none}.wig,.wig2,.conf,#combo.on,#paper{animation:none}.conf{display:none}}
 #app img{-webkit-user-drag:none}
 #paper{-webkit-user-select:text;user-select:text}
+@media (prefers-color-scheme:dark){:root{--ink:#111;--paper:#FBF3E4;--powder:#F6BCCB}html,body{background:#161616}}
 </style>
 </head>
 <body>
@@ -521,17 +543,28 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
 
 <section id="home" class="scr dots" aria-label="מסך פתיחה">
   <div class="top torn-b"></div>
+  <canvas id="fw" aria-hidden="true"></canvas>
   <svg class="bunting" viewBox="0 0 400 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 Q200 26 400 4" fill="none" stroke="#111" stroke-width="2"/><g><path fill="#FFD84D" d="M20 6 L52 9 L36 40Z"/><path fill="#FF8E6E" d="M76 11 L108 14 L92 44Z"/><path fill="#F6BCCB" d="M132 14 L164 15 L148 46Z"/><path fill="#FBF3E4" d="M188 15 L220 15 L204 46Z"/><path fill="#FFD84D" d="M244 15 L276 13 L260 45Z"/><path fill="#FF8E6E" d="M300 12 L332 9 L316 42Z"/><path fill="#F6BCCB" d="M352 8 L384 5 L368 38Z"/></g></svg>
   <p class="hello strip" style="margin:0">יום הולדת שמח סולציצ</p>
   <h1 class="big">לוכלין</h1>
+  <svg class="hscrib" viewBox="0 0 200 18" aria-hidden="true"><path d="M4 10 C 40 3, 70 16, 110 8 S 170 4, 196 11" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round"/></svg>
   <div class="land serif">לנד</div>
-  <div class="pol"><img src="img/finger.jpg" alt="ליהי"><span class="serif">מהדורת יום הולדת</span><i class="tape" style="top:-12px;left:36%;rotate:-8deg"></i></div>
-  <button class="cake" id="cakeB" aria-label="מכבים את הנרות"><svg class="st wig" viewBox="0 0 100 100" aria-hidden="true"><rect fill="#FFD84D" x="26" y="18" width="6" height="26"/><rect fill="#19B5B1" x="47" y="14" width="6" height="30"/><rect fill="#FFD84D" x="68" y="18" width="6" height="26"/><g fill="#E5432E"><path class="fl" style="transform-origin:29px 16px;animation:flame .5s infinite" d="M29 4 Q35 12 29 17 Q23 12 29 4Z"/><path class="fl" style="transform-origin:50px 12px;animation:flame .6s infinite" d="M50 0 Q56 8 50 13 Q44 8 50 0Z"/><path class="fl" style="transform-origin:71px 16px;animation:flame .45s infinite" d="M71 4 Q77 12 71 17 Q65 12 71 4Z"/></g><path fill="#F6BCCB" d="M12 44 L88 44 L88 92 L12 92Z"/><path fill="url(#dotB)" d="M12 44 L88 44 L88 92 L12 92Z"/><path fill="#FBF3E4" d="M12 44 L88 44 L88 58 Q80 70 72 58 Q64 70 56 58 Q48 70 40 58 Q32 70 24 58 Q18 68 12 58Z"/><rect fill="#111" x="6" y="92" width="88" height="6"/></svg><span class="strip">מכבים נרות</span></button>
+  <svg class="hd hd1" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L23 16 L37 20 L23 24 L20 37 L17 24 L3 20 L17 16Z" fill="#FFD84D" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <svg class="hd hd2" viewBox="0 0 40 40" aria-hidden="true"><path d="M21 20 C 21 17, 25 17, 25 21 C 25 26, 17 27, 15 21 C 13 14, 24 10, 29 16 C 35 24, 27 34, 18 32 C 8 30, 5 18, 12 10" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round"/></svg>
+  <svg class="hd hd3" viewBox="0 0 44 30" aria-hidden="true"><path d="M3 22 L10 8 L17 22 L24 8 L31 22 L38 8" fill="none" stroke="#19B5B1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg class="hd hd4" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4 L23 16 L36 20 L23 24 L20 36 L17 24 L4 20 L17 16Z" fill="#FF8E6E" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <div class="pol"><i class="wtape" aria-hidden="true"></i><img src="img/finger.jpg" alt="ליהי"><span class="serif">מהדורת יום הולדת</span></div>
+  <div class="cakeWrap">
+    <button class="cake" id="cakeB" aria-label="מכבים את הנרות"><svg viewBox="0 0 140 160" aria-hidden="true"><ellipse cx="70" cy="151" rx="66" ry="8" fill="#fff" stroke="#111" stroke-width="3"/><rect x="12" y="98" width="116" height="52" rx="7" fill="#F6BCCB" stroke="#111" stroke-width="3"/><rect x="12" y="98" width="116" height="52" rx="7" fill="url(#dotB)"/><path d="M12 106 Q12 98 20 98 L120 98 Q128 98 128 106 L128 112 Q122 120 116 112 Q110 124 102 112 Q95 121 88 112 Q80 126 72 112 Q64 120 56 112 Q48 125 40 112 Q33 120 26 112 Q19 122 12 112Z" fill="#FBF3E4" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><rect x="30" y="60" width="80" height="42" rx="7" fill="#FF8E6E" stroke="#111" stroke-width="3"/><path d="M30 68 Q30 60 38 60 L102 60 Q110 60 110 68 L110 72 Q104 82 98 72 Q92 80 86 72 Q79 84 72 72 Q65 80 58 72 Q51 82 44 72 Q37 79 30 72Z" fill="#FFD84D" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/><rect x="22" y="72" width="7" height="2.6" rx="1.3" fill="#FFD84D" transform="rotate(-20 25 73)"/><rect x="40" y="66" width="7" height="2.6" rx="1.3" fill="#19B5B1" transform="rotate(30 43 67)"/><rect x="58" y="74" width="7" height="2.6" rx="1.3" fill="#FFFFFF" transform="rotate(-40 61 75)"/><rect x="76" y="64" width="7" height="2.6" rx="1.3" fill="#FFD84D" transform="rotate(15 79 65)"/><rect x="96" y="70" width="7" height="2.6" rx="1.3" fill="#19B5B1" transform="rotate(-25 99 71)"/><rect x="112" y="62" width="7" height="2.6" rx="1.3" fill="#FFFFFF" transform="rotate(40 115 63)"/><rect x="30" y="118" width="7" height="2.6" rx="1.3" fill="#FFD84D" transform="rotate(25 33 119)"/><rect x="52" y="124" width="7" height="2.6" rx="1.3" fill="#FFFFFF" transform="rotate(-15 55 125)"/><rect x="70" y="116" width="7" height="2.6" rx="1.3" fill="#19B5B1" transform="rotate(35 73 117)"/><rect x="90" y="126" width="7" height="2.6" rx="1.3" fill="#FFD84D" transform="rotate(-30 93 127)"/><rect x="108" y="114" width="7" height="2.6" rx="1.3" fill="#FFFFFF" transform="rotate(20 111 115)"/><rect x="44" y="30" width="9" height="30" rx="2" fill="#FFD84D" stroke="#111" stroke-width="2.2"/><path d="M46 36 L51 44 M46 46 L51 54" stroke="#fff" stroke-width="2" opacity=".7"/><line x1="48.5" y1="30" x2="48.5" y2="25" stroke="#111" stroke-width="2"/><g class="flg" id="fl0"><path class="fl" d="M48.5 4 C 56.0 12, 53.0 18, 48.5 25 C 44.0 25, 41.0 18, 48.5 4Z" fill="#FF8E6E" stroke="#111" stroke-width="1.6"/><path class="fl" d="M48.5 12 C 52.0 17, 51.0 21, 48.5 24 C 46.0 24, 45.0 20, 48.5 12Z" fill="#FFD84D"/></g><g class="smk" id="sm0" style="transform-box:fill-box;transform-origin:50% 100%"><circle cx="48.5" cy="20" r="5" fill="#bbb"/><circle cx="46.5" cy="13" r="4" fill="#ccc"/><circle cx="50.0" cy="7" r="3" fill="#ddd"/></g><rect x="65" y="30" width="9" height="30" rx="2" fill="#19B5B1" stroke="#111" stroke-width="2.2"/><path d="M67 36 L72 44 M67 46 L72 54" stroke="#fff" stroke-width="2" opacity=".7"/><line x1="70.0" y1="30" x2="70.0" y2="25" stroke="#111" stroke-width="2"/><g class="flg" id="fl1"><path class="fl" d="M70.0 4 C 77.5 12, 74.5 18, 70.0 25 C 65.5 25, 62.5 18, 70.0 4Z" fill="#FF8E6E" stroke="#111" stroke-width="1.6"/><path class="fl" d="M70.0 12 C 73.5 17, 72.5 21, 70.0 24 C 67.5 24, 66.5 20, 70.0 12Z" fill="#FFD84D"/></g><g class="smk" id="sm1" style="transform-box:fill-box;transform-origin:50% 100%"><circle cx="70.0" cy="20" r="5" fill="#bbb"/><circle cx="68.0" cy="13" r="4" fill="#ccc"/><circle cx="71.5" cy="7" r="3" fill="#ddd"/></g><rect x="87" y="30" width="9" height="30" rx="2" fill="#FFD84D" stroke="#111" stroke-width="2.2"/><path d="M89 36 L94 44 M89 46 L94 54" stroke="#fff" stroke-width="2" opacity=".7"/><line x1="91.5" y1="30" x2="91.5" y2="25" stroke="#111" stroke-width="2"/><g class="flg" id="fl2"><path class="fl" d="M91.5 4 C 99.0 12, 96.0 18, 91.5 25 C 87.0 25, 84.0 18, 91.5 4Z" fill="#FF8E6E" stroke="#111" stroke-width="1.6"/><path class="fl" d="M91.5 12 C 95.0 17, 94.0 21, 91.5 24 C 89.0 24, 88.0 20, 91.5 12Z" fill="#FFD84D"/></g><g class="smk" id="sm2" style="transform-box:fill-box;transform-origin:50% 100%"><circle cx="91.5" cy="20" r="5" fill="#bbb"/><circle cx="89.5" cy="13" r="4" fill="#ccc"/><circle cx="93.0" cy="7" r="3" fill="#ddd"/></g></svg></button>
+    <p class="shake" id="shakeHint"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5" fill="#FBF3E4" stroke="#FBF3E4" stroke-width="1"/><rect x="8.5" y="4.5" width="7" height="13" rx="1" fill="#111"/><path d="M3 8 Q1.5 12 3 16 M21 8 Q22.5 12 21 16" stroke="#FFD84D" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span id="shakeTxt">נערי את הטלפון כדי לכבות את הנרות</span></p>
+  </div>
   <svg class="fr st wig2" viewBox="0 0 60 70" aria-hidden="true"><use href="#fries"/></svg>
+  <div class="wish serif" id="wish" role="status">משאלה התקבלה!</div>
   <div class="cta">
     <button class="btn" data-go="map">פותחים</button>
     <button class="link" data-go="gate">ישר לברכה</button>
   </div>
+  <audio id="song" preload="auto" src="img/bday.mp3"></audio>
 </section>
 
 <section id="map" class="scr dots" aria-label="מפת העולם">
@@ -751,6 +784,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let cur = 'intro';
 function go(name){
   if(cur==='intro') iStopAll();
+  if(cur==='home' && name!=='home') fwStop();
   if(cur==='game') stopGame();
   if(cur==='parli') stopCall();
   if(cur==='bfast') bStop();
@@ -825,7 +859,7 @@ function iFreeze(){ if(I.phase!=='vid') return; I.phase='poster';
   $('#iVid').classList.add('frozen'); $('#iVwrap').classList.add('punch'); $('#iPoster').classList.add('on'); }
 function iLand(){ if(I.phase!=='poster') return; I.phase='land'; iShow('iLand'); $('#iSkip').style.display='none';
   confetti(90); [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.15,'triangle'),i*120)); }
-function iEnter(){ iStopAll(); go('home'); confetti(60); }
+function iEnter(){ iStopAll(); enableMotion(); go('home'); confetti(60); celebrate(); }
 $('#iPlay').onclick=iBegin;
 $('#iGo').onclick=iEnter;
 $('#iSkip').onclick=iEnter;
@@ -852,8 +886,66 @@ function confetti(n=44){
     app.appendChild(c); setTimeout(()=>c.remove(),4200); }
 }
 
-let blown=0; $('#cakeB').onclick=()=>{ const fl=$$('#cakeB .fl'); if(blown>=3) return; fl[blown].style.display='none'; blown++; beep(300+blown*120);
-  if(blown===3){ confetti(80); setTimeout(()=>{ fl.forEach(f=>f.style.display=''); blown=0; },2800); } };
+// ---------- עוגה, ניעור וזיקוקים ----------
+const CK={out:[false,false,false],relight:0,celebrated:false,motion:false,last:null,lastShake:0,leanT:0};
+const song=$('#song');
+function blowOne(){ const i=CK.out.indexOf(false); if(i<0) return; CK.out[i]=true;
+  $('#fl'+i).classList.add('off'); const sm=$('#sm'+i); sm.classList.remove('puff'); void sm.getBoundingClientRect(); sm.classList.add('puff');
+  beep(260-i*40,.14,'triangle'); if(CK.out.every(Boolean)) allOut(); }
+function allOut(){ fwFinale(); confetti(110); const w=$('#wish'); w.classList.remove('on'); void w.offsetWidth; w.classList.add('on');
+  $('#shakeHint').style.visibility='hidden'; [523,659,784,1047].forEach((f,k)=>setTimeout(()=>beep(f,.16,'triangle'),k*120));
+  clearTimeout(CK.relight); CK.relight=setTimeout(relight,9000); }
+function relight(){ CK.out=[false,false,false]; $$('#cakeB .flg').forEach(g=>g.classList.remove('off')); $('#wish').classList.remove('on'); $('#shakeHint').style.visibility=''; }
+$('#cakeB').onclick=blowOne;
+function onMotion(e){ const a=e.accelerationIncludingGravity||e.acceleration; if(!a||a.x==null) return; CK.motion=true;
+  const m=Math.hypot(a.x||0,a.y||0,a.z||0);
+  if(CK.last!=null){ const d=Math.abs(m-CK.last), now=performance.now();
+    if(d>3){ const lean=Math.min(28,d*1.6)*(Math.random()<.5?-1:1); $('#cakeB').style.setProperty('--lean',lean+'deg'); clearTimeout(CK.leanT); CK.leanT=setTimeout(()=>$('#cakeB').style.setProperty('--lean','0deg'),160); }
+    if(d>14 && now-CK.lastShake>380 && cur==='home'){ CK.lastShake=now; blowOne(); } }
+  CK.last=m; }
+function tapHint(){ if(!CK.motion) $('#shakeTxt').textContent='לוחצים על העוגה כדי לכבות את הנרות'; }
+function enableMotion(){
+  try{
+    if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
+      DeviceMotionEvent.requestPermission().then(st=>{ if(st==='granted'){ addEventListener('devicemotion',onMotion); setTimeout(tapHint,2500); } else tapHint(); }).catch(tapHint);
+    } else if(typeof DeviceMotionEvent!=='undefined'){ addEventListener('devicemotion',onMotion); setTimeout(tapHint,1800); }
+    else tapHint();
+  }catch(e){ tapHint(); } }
+function celebrate(){ if(CK.celebrated) return; CK.celebrated=true;
+  try{ song.muted=muted; song.currentTime=0; const p=song.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
+  fwStart(); }
+// fireworks engine
+const FW={c:$('#fw'),ctx:null,p:[],r:[],raf:0,last:0,plan:[],dpr:1,W:0,H:0};
+FW.ctx=FW.c.getContext('2d');
+const FWC=['#FF3D6E','#FFD000','#7A3CFF','#FF7A00','#00A6E0','#FFFFFF','#FF4FC3','#2BD96B'];
+function fwSize(){ FW.dpr=Math.min(2,window.devicePixelRatio||1); FW.W=FW.c.clientWidth; FW.H=FW.c.clientHeight; FW.c.width=FW.W*FW.dpr; FW.c.height=FW.H*FW.dpr; FW.ctx.setTransform(FW.dpr,0,0,FW.dpr,0,0); }
+function fwLaunch(){ const x=FW.W*(.12+Math.random()*.76), ty=FW.H*(.08+Math.random()*.32);
+  FW.r.push({x,y:FW.H+10,vx:(Math.random()-.5)*1.2,vy:-Math.sqrt(2*.12*(FW.H-ty))*1.02,c:FWC[Math.random()*FWC.length|0],ty}); }
+function fwBurst(x,y,c){ const n=reduce?40:110+(Math.random()*60|0), ring=Math.random()<.3, c2=FWC[Math.random()*FWC.length|0];
+  for(let i=0;i<n;i++){ const a=Math.PI*2*i/n+Math.random()*.2, sp=ring?4.4:1.2+Math.random()*4.2;
+    FW.p.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,dec:.008+Math.random()*.011,c:Math.random()<.3?c2:c,s:2.2+Math.random()*1.4}); }
+  for(let i=0;i<24;i++) FW.p.push({x,y,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,life:1,dec:.025,c:'#fff',s:1.4}); }
+function fwTick(now){ const ctx=FW.ctx, dt=Math.min(3,(now-(FW.last||now))/16.7); FW.last=now;
+  while(FW.plan.length && FW.plan[0]<=now){ FW.plan.shift(); fwLaunch(); }
+  ctx.globalCompositeOperation='destination-out'; ctx.fillStyle='rgba(0,0,0,.24)'; ctx.fillRect(0,0,FW.W,FW.H);
+  ctx.globalCompositeOperation='source-over'; ctx.lineCap='round';
+  for(let i=FW.r.length-1;i>=0;i--){ const r=FW.r[i]; r.x+=r.vx*dt; r.y+=r.vy*dt; r.vy+=.12*dt;
+    ctx.strokeStyle=r.c; ctx.lineWidth=2.2; ctx.beginPath(); ctx.moveTo(r.x,r.y); ctx.lineTo(r.x-r.vx*3,r.y-r.vy*3); ctx.stroke();
+    if(r.vy>=-.4 || r.y<=r.ty){ FW.r.splice(i,1); fwBurst(r.x,r.y,r.c); } }
+  for(let i=FW.p.length-1;i>=0;i--){ const p=FW.p[i]; p.vx*=Math.pow(.985,dt); p.vy=p.vy*Math.pow(.985,dt)+.045*dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.life-=p.dec*dt;
+    if(p.life<=0){ FW.p.splice(i,1); continue; }
+    ctx.globalAlpha=Math.max(0,p.life); ctx.strokeStyle=p.c; ctx.lineWidth=p.s; ctx.beginPath(); ctx.moveTo(p.x-p.vx*1.8,p.y-p.vy*1.8); ctx.lineTo(p.x,p.y); ctx.stroke(); }
+  ctx.globalAlpha=1;
+  if(FW.plan.length||FW.r.length||FW.p.length) FW.raf=requestAnimationFrame(fwTick); else { FW.raf=0; ctx.clearRect(0,0,FW.W,FW.H); } }
+function fwRun(){ if(!FW.raf){ FW.last=0; FW.raf=requestAnimationFrame(fwTick); } }
+function fwPlan(times){ const now=performance.now(); FW.plan.push(...times.map(t=>now+t)); FW.plan.sort((a,b)=>a-b); fwRun(); }
+function fwStart(){ fwSize(); const t=[]; const k=reduce?.25:1;
+  for(let x=0;x<9000;x+=300/k){ t.push(x); if(!reduce){ t.push(x+110); if(Math.random()<.5) t.push(x+200); } }
+  for(let x=9600;x<32000;x+=900/k) t.push(x);
+  fwPlan(t); }
+function fwFinale(){ fwSize(); const t=[]; for(let i=0;i<(reduce?6:28);i++) t.push(i*80+Math.random()*60); for(let x=2400;x<12000;x+=420) t.push(x); fwPlan(t); }
+function fwStop(){ FW.plan=[]; FW.r=[]; FW.p=[]; cancelAnimationFrame(FW.raf); FW.raf=0; FW.ctx.clearRect(0,0,FW.W,FW.H); }
+addEventListener('resize',()=>{ if(FW.raf) fwSize(); });
 
 // ---------- המשחק ----------
 const stage=$('#stage'), player=$('#player');
