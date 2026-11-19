@@ -584,7 +584,7 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
   </div>
   <div class="grain" aria-hidden="true"></div>
   <button id="iSkip"></button>
-  <audio id="iFan" preload="auto" src="img/score.mp3"></audio>
+  <audio id="iFan" preload="auto" src="img/intro.mp3"></audio>
 </section>
 
 <section id="home" class="scr dots" aria-label="מסך פתיחה">
@@ -891,7 +891,7 @@ function iShow(id){ $$('#intro .isc').forEach(x=>x.classList.toggle('on',x.id===
 function iStopAll(){ I.timers.forEach(clearTimeout); I.timers=[]; cancelAnimationFrame(I.raf); I.phase='done';
   try{ fan.pause(); }catch(e){} try{ vid.pause(); }catch(e){} }
 function iClock(){ return (!fan.paused && fan.currentTime>0) ? fan.currentTime : (performance.now()-I.t0)/1000; }
-const T_CUT=8.0, T_FREEZE=12.2, T_LAND=15.6;
+const T_CUT=8.0, T_FREEZE=12.34, T_LAND=15.7;
 function iBegin(){ if(I.phase!=='start') return; I.phase='hw'; I.t0=performance.now();
   try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)(); ac.resume&&ac.resume(); }catch(e){}
   fan.muted=muted; fan.currentTime=0; const fp=fan.play(); if(fp&&fp.catch) fp.catch(()=>{});
