@@ -584,7 +584,7 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
   </div>
   <div class="grain" aria-hidden="true"></div>
   <button id="iSkip"></button>
-  <audio id="iFan" preload="auto" src="img/intro.mp3"></audio>
+  <audio id="iFan" preload="auto" src="img/theme.mp3"></audio>
 </section>
 
 <section id="home" class="scr dots" aria-label="מסך פתיחה">
@@ -610,7 +610,6 @@ button:focus-visible{outline:4px solid #fff;outline-offset:2px}
     <button class="btn" data-go="map">פותחים</button>
     <button class="link" data-go="gate">ישר לברכה</button>
   </div>
-  <audio id="song" preload="auto" src="img/bday.mp3"></audio>
 </section>
 
 <section id="map" class="scr dots" aria-label="מפת העולם">
@@ -889,7 +888,7 @@ $('#iGo').textContent=CONTENT.INTRO_GO; $('#iSkip').textContent=CONTENT.INTRO_SK
 function iAt(ms,fn){ I.timers.push(setTimeout(fn,ms)); }
 function iShow(id){ $$('#intro .isc').forEach(x=>x.classList.toggle('on',x.id===id)); }
 function iStopAll(){ I.timers.forEach(clearTimeout); I.timers=[]; cancelAnimationFrame(I.raf); I.phase='done';
-  try{ fan.pause(); }catch(e){} try{ vid.pause(); }catch(e){} }
+  if(!I.keepMusic){ try{ fan.pause(); }catch(e){} } try{ vid.pause(); }catch(e){} }
 function iClock(){ return (!fan.paused && fan.currentTime>0) ? fan.currentTime : (performance.now()-I.t0)/1000; }
 const T_CUT=8.0, T_FREEZE=12.34, T_LAND=15.7;
 function iBegin(){ if(I.phase!=='start') return; I.phase='hw'; I.t0=performance.now();
@@ -915,7 +914,7 @@ function iFreeze(){ if(I.phase!=='vid') return; I.phase='poster';
   $('#iVid').classList.add('frozen'); $('#iVwrap').classList.add('punch'); $('#iPoster').classList.add('on'); }
 function iLand(){ if(I.phase!=='poster') return; I.phase='land'; iShow('iLand'); $('#iSkip').style.display='none';
   confetti(90); [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.15,'triangle'),i*120)); }
-function iEnter(){ iStopAll(); enableMotion(); go('home'); confetti(60); celebrate(); }
+function iEnter(){ I.keepMusic=true; iStopAll(); enableMotion(); go('home'); confetti(60); celebrate(); }
 $('#iPlay').onclick=iBegin;
 $('#iGo').onclick=iEnter;
 $('#iSkip').onclick=iEnter;
@@ -943,7 +942,7 @@ $('#lockF').addEventListener('submit',e=>{ e.preventDefault();
 
 // ---------- צליל ----------
 let muted=false, ac=null;
-function toggleMute(){ muted=!muted; $$('.mute').forEach(b=>{b.style.opacity=muted?.45:1; b.setAttribute('aria-pressed',muted)}); }
+function toggleMute(){ muted=!muted; try{ fan.muted=muted; }catch(e){} $$('.mute').forEach(b=>{b.style.opacity=muted?.45:1; b.setAttribute('aria-pressed',muted)}); }
 function beep(f,d=.08,type='square'){
   if(muted) return;
   try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)();
@@ -965,7 +964,6 @@ function confetti(n=44){
 
 // ---------- עוגה, ניעור וזיקוקים ----------
 const CK={out:[false,false,false],relight:0,celebrated:false,motion:false,last:null,lastShake:0,leanT:0};
-const song=$('#song');
 function blowOne(){ const i=CK.out.indexOf(false); if(i<0) return; CK.out[i]=true;
   $('#fl'+i).classList.add('off'); const sm=$('#sm'+i); sm.classList.remove('puff'); void sm.getBoundingClientRect(); sm.classList.add('puff');
   beep(260-i*40,.14,'triangle'); if(CK.out.every(Boolean)) allOut(); }
@@ -989,7 +987,7 @@ function enableMotion(){
     else tapHint();
   }catch(e){ tapHint(); } }
 function celebrate(){ if(CK.celebrated) return; CK.celebrated=true;
-  try{ song.muted=muted; song.currentTime=0; const p=song.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
+  try{ if(fan.paused){ fan.muted=muted; fan.currentTime=8.0; const p=fan.play(); if(p&&p.catch) p.catch(()=>{}); } }catch(e){}
   fwStart(); }
 // fireworks engine
 const FW={c:$('#fw'),ctx:null,p:[],r:[],raf:0,last:0,plan:[],dpr:1,W:0,H:0};
