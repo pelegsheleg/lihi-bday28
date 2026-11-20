@@ -866,14 +866,14 @@ let tT; function toast(t){ const el=$('#toast'); el.textContent=t; el.style.disp
 // ---------- מדבקות ----------
 const STOPS=[['game','צ׳דר־בייקון'],['bfast','שולחן הבוקר'],['clinic','קליניקת המהפכים'],['parli','פארלי אינגלזה'],['jocky','המקום של עלמה'],['gallery','ארכיון התמונות']];
 const DONE=new Set(); let cheered=false;
-try{ JSON.parse(localStorage.getItem('lochlin-done-v2')||'[]').forEach(x=>DONE.add(x)); cheered=localStorage.getItem('lochlin-cheer-v2')==='1'; }catch(e){}
+try{ JSON.parse(localStorage.getItem('lochlin-done-v3')||'[]').forEach(x=>DONE.add(x)); cheered=localStorage.getItem('lochlin-cheer-v3')==='1'; }catch(e){}
 const allDone=()=>STOPS.every(([k])=>DONE.has(k));
 function renderDone(){ STOPS.forEach(([k])=>{ const t=document.querySelector('.tk[data-go="'+k+'"]'); if(!t) return;
     if(DONE.has(k)&&!t.querySelector('.stkr')) t.insertAdjacentHTML('beforeend','<span class="stkr" role="img" aria-label="הושלם"><svg viewBox="0 0 20 20" aria-hidden="true"><use href="#star"/></svg></span>'); });
   $('#prog').textContent='מדבקות: '+STOPS.filter(([k])=>DONE.has(k)).length+'/6';
   const all=allDone(); $('.guard').classList.toggle('free',all); $('.gaterow .btn').classList.toggle('glow',all); }
-function markDone(k){ if(DONE.has(k)) return; DONE.add(k); try{ localStorage.setItem('lochlin-done-v2',JSON.stringify([...DONE])); }catch(e){} renderDone(); }
-function mapCheer(){ if(!allDone()||cheered) return; cheered=true; try{ localStorage.setItem('lochlin-cheer-v2','1'); }catch(e){}
+function markDone(k){ if(DONE.has(k)) return; DONE.add(k); try{ localStorage.setItem('lochlin-done-v3',JSON.stringify([...DONE])); }catch(e){} renderDone(); }
+function mapCheer(){ if(!allDone()||cheered) return; cheered=true; try{ localStorage.setItem('lochlin-cheer-v3','1'); }catch(e){}
   setTimeout(()=>{ if(cur!=='map') return; confetti(90); toast('כל המדבקות! השומרת זזה מהדרך'); [523,659,784].forEach((f,i)=>setTimeout(()=>beep(f,.14,'triangle'),i*130)); },350); }
 function renderBadges(){ $('#badges').innerHTML=STOPS.map(([k,l])=>'<span class="'+(DONE.has(k)?'':'no')+'"><i><svg viewBox="0 0 20 20" aria-hidden="true"><use href="#star"/></svg></i>'+l+'</span>').join(''); }
 document.addEventListener('click',e=>{ const ok=e.target.closest('[data-ok]'); if(ok) ok.closest('.ov').classList.remove('on'); });
@@ -932,11 +932,11 @@ function sha256hex(str){ const b=new TextEncoder().encode(str), K=[0x428a2f98,0x
     H[0]=(H[0]+a)>>>0; H[1]=(H[1]+bb)>>>0; H[2]=(H[2]+c)>>>0; H[3]=(H[3]+d)>>>0; H[4]=(H[4]+e)>>>0; H[5]=(H[5]+f)>>>0; H[6]=(H[6]+g)>>>0; H[7]=(H[7]+h)>>>0; }
   return H.map(x=>x.toString(16).padStart(8,'0')).join(''); }
 const PASS=["55859c841959ddd47f3548ef428dc649428da3e8f3534140f8c8b93123fcc5e9","3ee9825c4eebd0334f40bc629d20ecbe5b0545889790ccf3df8fe0b0a2da19bd","7c45d237d2c93594e7d0ed795e4bef5f050314cc725844cde607ee63d2a49ba6"]; let lockFails=0;
-let unlocked=false; try{ unlocked=localStorage.getItem('lochlin-ok-v1')==='1'; }catch(e){}
+let unlocked=false; try{ unlocked=localStorage.getItem('lochlin-ok-v2')==='1'; }catch(e){}
 if(!unlocked){ $('#intro').classList.remove('on'); $('#lock').classList.add('on'); cur='lock'; }
 $('#lockF').addEventListener('submit',e=>{ e.preventDefault();
   const v=$('#pw').value.toLowerCase().replace(/[^\u05d0-\u05eaa-z]/g,'').replace(/ץ/g,'צ').replace(/ף/g,'פ').replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ');
-  if(PASS.includes(sha256hex(v)) || PASS.includes(sha256hex(v.slice(0,3)))){ try{ localStorage.setItem('lochlin-ok-v1','1'); }catch(err){}
+  if(PASS.includes(sha256hex(v)) || PASS.includes(sha256hex(v.slice(0,3)))){ try{ localStorage.setItem('lochlin-ok-v2','1'); }catch(err){}
     $('#pw').blur(); $('#lock').classList.remove('on'); $('#intro').classList.add('on'); cur='intro'; iBegin(); }
   else { const f=$('#lockF'); f.classList.remove('bad'); void f.offsetWidth; f.classList.add('bad'); lockFails++; $('#lockMsg').textContent=lockFails>=2?'רמז: שלוש אותיות, מתחיל ב־נ':'לא זה. נסי שוב'; beep(150,.15,'sawtooth'); } });
 
